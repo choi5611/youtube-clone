@@ -14,8 +14,8 @@ const initialState: InitialState = {
   recommendedVideos: [],
 };
 
+//Redux 슬라이스 생성
 const YoutubeSlice = createSlice({
-  //Redux 슬라이스 생성
   name: "youtubeApp", //슬라이스의 이름
   initialState, //초기상태
   reducers: {
@@ -29,7 +29,8 @@ const YoutubeSlice = createSlice({
     clearSearchTerm: (state) => {
       state.searchTerm = "";
     },
-  }, // 리듀서 함수를 정의, 현 상태는 빈 객체
+  }, // 동기적인 액션을 처리하는 리듀서 함수들을 정의함
+
   extraReducers: (builder) => {
     builder.addCase(getHomePageVideos.fulfilled, (state, action) => {
       state.videos = action.payload.parsedData;
@@ -57,6 +58,7 @@ export const store = configureStore({
 });
 export const { clearVideos, changeSearchTerm, clearSearchTerm } =
   YoutubeSlice.actions;
+//생성한 슬라이스에서 필요한 액션 생성자 함수들을 내보내기
 
 export type RootState = ReturnType<typeof store.getState>; //스토어 전체 상태 타입 정의
 export type AppDispatch = typeof store.dispatch; // 스토어의 디스패치 함수 타입 정의

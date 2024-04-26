@@ -19,10 +19,12 @@ export default function Watch() {
   const currentPlaying = useAppSelector(
     (state) => state.youtubeApp.currentPlaying
   );
+  //Redux 스토어에서 현재 재생 중인 비디오 정보를 가져옵니다.
 
   const recommendedVideos = useAppSelector(
     (state) => state.youtubeApp.recommendedVideos
   );
+  //Redux 스토어에서 추천 비디오 목록을 가져옵니다.
 
   useEffect(() => {
     if (id) {
@@ -32,10 +34,18 @@ export default function Watch() {
       navigate("/");
     }
   }, [id, navigate, dispatch]);
-
+  // id가 존재하는 경우, Redux의 getVideoDetails 액션을 디스패치하여 ID의 영상정보를 가져옵니다.
+  // setShowMoreStatus(false)를 호출하여 영상설명을 간략하게 보기로 설정
+  // id가 없는경우(URL에 ID가 없는경우) 사용자를 홈페이지로 리다이렉트합니다.
   useEffect(() => {
     if (currentPlaying && id) dispatch(getRecommendedVideos(id));
   }, [currentPlaying, dispatch, id]);
+
+  // currentPlaying 및 id가 변경될 때마다 실행됩니다.
+  // 현재 재생 중인 비디오가 있고(currentPlaying이 존재하고),
+  // 비디오 ID가 존재하는 경우(id가 존재하고), Redux의 getRecommendedVideos 액션을 디스패치하여
+  // 해당 비디오의 추천 비디오 목록을 가져옵니다.
+
   return (
     <div>
       {currentPlaying && currentPlaying?.videoId === id && (

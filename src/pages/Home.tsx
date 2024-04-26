@@ -22,6 +22,7 @@ export default function Home() {
   useEffect(() => {
     dispatch(getHomePageVideos(false));
   }, [dispatch]);
+  // redux의 getHomePageVideos 액션을 디스패치하여 홈페이지의 표시할 영상을 가져옵니다.
 
   return (
     <div className="max-h-screen overflow-hidden">
@@ -34,6 +35,7 @@ export default function Home() {
           <InfiniteScroll
             dataLength={videos.length}
             next={() => dispatch(getHomePageVideos(true))}
+            // 액션을 디스패치하여 다음 페이지의 비디오를 가져옵니다.
             hasMore={videos.length < 500}
             loader={<Spinner />}
             height={900}

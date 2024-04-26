@@ -22,6 +22,10 @@ export default function Search() {
       dispatch(getSearchPageVideos(false));
     }
   }, [dispatch, navigate, searchTerm]);
+  //컴포넌트가 렌더링될 때 마다 실행됩니다.
+  //Redux의 clearVideos 액션을 디스패치하여 이전에 검색된 영상을 초기화
+  //검색어가 없는 경우 홈페이지로 리다이렉트
+  //검색어가 있는 경우 Redux의 getSearchPagevideos 액션을 디스패하지하 검색된 영상을 가져옵니다.
 
   return (
     <div className="max-h-screen overflow-hidden">
@@ -35,6 +39,7 @@ export default function Search() {
             <InfiniteScroll
               dataLength={videos.length}
               next={() => dispatch(getSearchPageVideos(true))}
+              // 액션을 디스패치하여 다음 페이지의 비디오를 가져옵니다.
               hasMore={videos.length < 500}
               loader={<Spinner />}
               height={900}
